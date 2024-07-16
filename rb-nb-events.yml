@@ -1,0 +1,94 @@
+---
+- name: Basic run with Partial NB Change Events
+  hosts: localhost
+  sources:
+    - ansible.eda.generic:
+        event_delay: 1
+        payload:
+          - device_type:
+              object_type: dcim.devicetype
+              part_number: DCS-7280CR2-60
+            display: ams01-jlk-01
+            id: 773b8e60-f744-458a-9680-fd004fd30311
+            last_updated: '2024-07-15T18:13:42.833317Z'
+            location:
+              display: Europe → Netherlands → AMS01
+              name: AMS01
+            name: ams01-jlk-01
+            platform:
+              display: Arista EOS
+              name: Arista EOS
+              napalm_args: 
+              napalm_driver: eos
+              natural_slug: arista-eos_f48f
+              network_driver: arista_eos
+              network_driver_mappings:
+                ansible: arista.eos.eos
+                hier_config: eos
+                napalm: eos
+                netmiko: arista_eos
+                netutils_parser: arista_eos
+                ntc_templates: arista_eos
+                pyntc: arista_eos_eapi
+                scrapli: arista_eos
+              object_type: dcim.platform
+            role:
+              display: edge
+              name: edge
+            serial: ''
+            status:
+              description: Unit is active
+              display: Active
+              name: Active
+            tenant:
+              name: Nautobot Airports
+              natural_slug: nautobot-airports_1f7f
+              object_type: tenancy.tenant
+          # Second event example.
+          - device_type:
+              object_type: dcim.devicetype
+              part_number: ASR1000v
+            display: ams01-jlk-02
+            id: 773b8e60-f744-458a-9680-fd004fd30311
+            last_updated: '2024-07-15T18:13:42.833317Z'
+            location:
+              display: Europe → Netherlands → AMS01
+              name: AMS01
+            name: ams01-jlk-02
+            platform:
+              display: Cisco IOS
+              name: cisco_ios
+              napalm_args: 
+              napalm_driver: ios
+              natural_slug: cisco-ios_f48f
+              network_driver: cisco_ios
+              network_driver_mappings:
+                ansible: cisco.ios.ios
+                hier_config: ios
+                napalm: ios
+                netmiko: cisco_ios
+                netutils_parser: cisco_ios
+                ntc_templates: cisco_ios
+                pyntc: cisco_ios
+                scrapli: cisco_ios
+              object_type: dcim.platform
+            role:
+              display: wan
+              name: wan
+            serial: ''
+            status:
+              description: Unit is active
+              display: Active
+              name: Active
+            tenant:
+              name: Nautobot Airports
+              natural_slug: nautobot-airports_1f7f
+              object_type: tenancy.tenant
+  rules:
+    - name: Run on All Devices
+      condition: event.role.name == "edge"
+      actions:
+        - run_playbook: 
+            name: "pb-1.yml"
+        - run_playbook:
+            name: "pb-2.yml"

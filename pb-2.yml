@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: "Debug from pb-2.yml"
+      ansible.builtin.debug:
+        msg: "This is a plalybook 2 debug message."

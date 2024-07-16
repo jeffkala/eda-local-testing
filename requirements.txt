@@ -1,0 +1,12 @@
+ansible-core
+ansible-rulebook
+aiobotocore
+aiohttp
+aiokafka
+azure-servicebus
+dpath
+kafka-python
+pyyaml
+watchdog
+psycopg
+xxhash
