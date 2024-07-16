@@ -8,6 +8,7 @@
           - device_type:
               object_type: dcim.devicetype
               part_number: DCS-7280CR2-60
+            action: created
             display: ams01-jlk-01
             id: 773b8e60-f744-458a-9680-fd004fd30311
             last_updated: '2024-07-15T18:13:42.833317Z'
@@ -48,6 +49,7 @@
           - device_type:
               object_type: dcim.devicetype
               part_number: ASR1000v
+            action: created
             display: ams01-jlk-02
             id: 773b8e60-f744-458a-9680-fd004fd30311
             last_updated: '2024-07-15T18:13:42.833317Z'
@@ -86,7 +88,7 @@
               object_type: tenancy.tenant
   rules:
     - name: Run on All Devices
-      condition: event.role.name == "edge"
+      condition: event.action == "created" and event.platform.network_driver == "cisco_ios"
       actions:
         - run_playbook: 
             name: "pb-1.yml"
