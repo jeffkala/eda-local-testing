@@ -1,6 +1,8 @@
 ---
 - name: Basic run with Partial NB Change Events
   hosts: localhost
+  # This is a important attribute if you want to match rules beyond the first conditional.
+  match_multiple_rules: true
   sources:
     - ansible.eda.generic:
         event_delay: 1
@@ -88,9 +90,14 @@
               object_type: tenancy.tenant
   rules:
     - name: Run on All Devices
-      condition: event.action == "created" and event.platform.network_driver == "cisco_ios"
+      condition: event.action == "created"
       actions:
         - run_playbook: 
             name: "pb-1.yml"
         - run_playbook:
             name: "pb-2.yml"
+    - name: Add to ISE
+      condition: event.platform.name == "Arista EOS"
+      actions:
+        - run_playbook: 
+            name: "pb-ise.yml"
